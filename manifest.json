@@ -3,7 +3,8 @@
     "name": "Test Extension",
     "version": "0.4",
     "permissions": [
-        "notifications"
+        "notifications",
+        "tabs"
       ],
     "content_scripts": [
         {

@@ -80,3 +80,11 @@
 // </script>
 
 // BALISE SCRIPT DANS HTML //
+
+// const displayCounter = () => {
+//     document.getElementById('compteur').innerHTML = seconds;
+// }
+
+// setInterval(displayCounter, 1000)
+
+// perfomance.Date()
