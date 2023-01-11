@@ -2,6 +2,7 @@ let seconds = 0;
 
 function counter() {
     seconds++;
+    document.getElementById('compteur').innerHTML = seconds
 }
 
 let interval = null;

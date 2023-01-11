@@ -10,9 +10,9 @@
     "content_scripts": [
         {
         "matches": [
-            "https://parisbasketball.paris/*"
+            "<all_urls>"
         ],
-        "js": ["content.js"]  
+        "js": ["content.js"]
         }
     ],
     "action": {
