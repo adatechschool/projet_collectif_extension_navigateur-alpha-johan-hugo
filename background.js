@@ -2,7 +2,9 @@ let seconds = 0;
 
 function counter() {
     seconds++;
+    document.getElementById('compteur').innerHTML = seconds
 }
+
 
 async function getCurrentTab() {
     let queryOptions = { active: true, lastFocusedWindow: true };
