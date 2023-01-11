@@ -4,7 +4,8 @@
     "version": "0.5",
     "permissions": [
         "notifications",
-        "tabs"
+        "tabs",
+        "activeTab"
       ],
     "content_scripts": [
         {
