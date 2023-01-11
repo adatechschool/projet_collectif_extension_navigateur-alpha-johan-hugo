@@ -8,32 +8,37 @@ async function getCurrentTab() {
     let queryOptions = { active: true, lastFocusedWindow: true };
     // `tab` will either be a `tabs.Tab` instance or `undefined`.
     let [tab] = await chrome.tabs.query(queryOptions);
-    if (tab.url.startsWith('https://www.youtube.com/')) {
-        console.log('youtube detected')
+    if (tab.url.startsWith('https://www.youtube.com/') || detectYoutubeURL()) {
+        console.log('Youtube detected');
         setInterval(counter, 1000)
     }
-    else{
-        clearInterval(counter)
-    }
-
     console.log(seconds)
-    return tab;
 }
 
-chrome.tabs.onActivated.addListener(moveToFirstPosition);
 
-async function moveToFirstPosition(activeInfo) {
+async function detectYoutubeURL() {
+  let queryOptions = { active: true, lastFocusedWindow: true };
+  let [tab] = await chrome.tabs.query(queryOptions);
+  if (tab.url.startsWith('https://www.youtube.com/')) {
+    console.log('New Youtube page');
+    return true
+  } 
+};
+
+function moveToTargetTab(activeInfo) {
   try {
-    await chrome.tabs.move(activeInfo.tabId, {index: 0});
-    getCurrentTab()
+    getCurrentTab();
     console.log('new tab selected');
    
        
   } catch (error) {
     if (error == 'Error: Tabs cannot be edited right now (user may be dragging a tab).') {
-      setTimeout(() => moveToFirstPosition(activeInfo), 50);
+      setTimeout(() => moveToTargetTab(activeInfo), 50);
     } else {
       console.error(error);
     }
   }
 }
+
+chrome.tabs.onUpdated.addListener(detectYoutubeURL, ["url"]);
+chrome.tabs.onActivated.addListener(moveToTargetTab);
