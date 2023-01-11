@@ -88,3 +88,31 @@
 // setInterval(displayCounter, 1000)
 
 // perfomance.Date()
+
+// com 11/01 16:23
+
+
+// async function detectYoutubeURL() {
+//   let queryOptions = { active: true, lastFocusedWindow: true };
+//   let [tab] = await chrome.tabs.query(queryOptions);
+//   if (tab.url.startsWith('https://www.youtube.com/')) {
+//     console.log('New Youtube page');
+//     return true
+//   } 
+// };
+
+// function moveToTargetTab(activeInfo) {
+//   try {
+//     getCurrentTab();
+//     console.log('new tab selected');
+   
+       
+//   } catch (error) {
+//     if (error == 'Error: Tabs cannot be edited right now (user may be dragging a tab).') {
+//       setTimeout(() => moveToTargetTab(activeInfo), 50);
+//     } else {
+//       console.error(error);
+//     }
+//   }
+// }
+
