@@ -42,5 +42,8 @@ function moveToTargetTab(activeInfo) {
   }
 }
 
-chrome.tabs.onUpdated.addListener(detectYoutubeURL, ["url"]);
+
+
+chrome.tabs.onCreated.addListener
+chrome.tabs.onUpdated.addListener(detectYoutubeURL);
 chrome.tabs.onActivated.addListener(moveToTargetTab);
