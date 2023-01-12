@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
-    "name": "Test Extension",
-    "version": "0.5",
+    "name": "TimeTracker",
+    "version": "0.6",
     "permissions": [
         "notifications",
         "tabs",
@@ -12,7 +12,8 @@
         "matches": [
             "<all_urls>"
         ],
-        "js": ["content.js"]
+        "js": ["content.js", "popup.js"],
+        "run_at": "document_start"
         }
     ],
     "action": {
