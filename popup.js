@@ -1,6 +1,6 @@
-document.addEventListener('DOMContentLoaded', function () {
+(async () => {
+    const response = await chrome.runtime.sendMessage({greeting: "hello"});
+    // do something with response here, not outside the function
+    document.getElementById('compteur').innerHTML = 'Time spent on Youtube ' + response.timeSpent + ' seconds'
+  })();
 
-    var test = document.getElementById("firstText").innerHTML;
-    document.getElementById("secondText").innerHTML = test;
-   
-   });
