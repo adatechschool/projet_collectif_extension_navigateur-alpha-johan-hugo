@@ -32,3 +32,12 @@ async function getCurrentTab() {
 
 chrome.tabs.onActivated.addListener(getCurrentTab);
 chrome.tabs.onUpdated.addListener(getCurrentTab);
+
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    if (request.greeting === "hello")
+      console.log('bien reçu');
+      sendResponse({timeSpent: seconds}); 
+      return true;
+    }
+);
