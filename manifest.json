@@ -5,7 +5,8 @@
     "permissions": [
         "notifications",
         "tabs",
-        "activeTab"
+        "activeTab",
+        "storage"
       ],
     "content_scripts": [
         {
