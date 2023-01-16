@@ -13,6 +13,7 @@ const URList = [
   } 
 ];
 
+
 function counter(n) {
   URList[n].time++  
   console.log('time increased')
@@ -31,8 +32,9 @@ async function getCurrentTab() {
     }
     else if (!tab.url.startsWith(URList[i].url)){
       console.log('redstar boolean = ', URList[0].activated, 'nantes boolean = ', URList[1].activated)
+      comm(i)
       URList[i].activated = false;
-      clearInterval(URList[i].interval)
+      clearInterval(URList[i].interval);
     }
   }
 }
@@ -40,12 +42,17 @@ async function getCurrentTab() {
 chrome.tabs.onActivated.addListener(getCurrentTab);
 chrome.tabs.onUpdated.addListener(getCurrentTab);
 
-chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
-  if (request.greeting === "hello")
-    console.log('bien reçu');
-    sendResponse({timeRedStar: URList[0].time}); 
-    return true;
+const comm = (n)=>{
+  chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+    if (request.greeting === "hello")
+      console.log('bien reçu');
+      sendResponse({timeRedStar: URList[0].time}); 
+      sendResponse({timeNantes: URList[1].time}); 
+      URList[n].time = 0
+      return true;
+    }
+  );
   }
-);
+
 
