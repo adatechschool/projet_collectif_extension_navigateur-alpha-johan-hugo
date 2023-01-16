@@ -1,29 +1,40 @@
-let seconds = 0;
-let interval = null;
-let counterActivated = false;
+const URList = [
+  {
+    url: 'https://www.redstar.fr/',
+    activated: false,
+    time: 0,
+    interval: null
+  }, 
+  {
+    url: 'https://www.fcnantes.com/',
+    activated: false,
+    time: 0,
+    interval: null 
+  } 
+];
 
-function counter() {
-  seconds++
+function counter(n) {
+  URList[n].time++  
+  console.log('time increased')
 }
 
 async function getCurrentTab() {
   let queryOptions = { active: true, lastFocusedWindow: true };
-  console.log(counterActivated)
+  console.log('counter redstar :', URList[0].time, 'nantes counter :', URList[1].time)
   let [tab] = await chrome.tabs.query(queryOptions);
-  if (tab.url.startsWith('https://www.redstar.fr/') && counterActivated == false) {
-    interval = setInterval(counter, 1000);
-    console.log("COME ON RED STAR !")
-    counterActivated = true;
+
+  for (let i in URList){
+    if (tab.url.startsWith(URList[i].url) && URList[i].activated == false) {
+      URList[i].interval = setInterval(function() {counter(i);}, 1000);
+      console.log("COME ON RED STAR !")
+      URList[i].activated = true;
+    }
+    else if (!tab.url.startsWith(URList[i].url)){
+      console.log('redstar boolean = ', URList[0].activated, 'nantes boolean = ', URList[1].activated)
+      URList[i].activated = false;
+      clearInterval(URList[i].interval)
+    }
   }
-  else if (tab.url.startsWith('https://www.redstar.fr/') && counterActivated == true) {
-    console.log("Retour sur le site Red Star, compteur continue")
-  }
-  else {
-    clearInterval(interval);
-    console.log('new tab selected');
-    counterActivated = false;
-  }
-  console.log(seconds);
 }
 
 chrome.tabs.onActivated.addListener(getCurrentTab);
@@ -33,7 +44,8 @@ chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
   if (request.greeting === "hello")
     console.log('bien reçu');
-    sendResponse({timeSpent: seconds}); 
+    sendResponse({timeRedStar: URList[0].time}); 
     return true;
   }
 );
+
