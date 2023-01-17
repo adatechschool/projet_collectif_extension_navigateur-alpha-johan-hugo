@@ -15,12 +15,33 @@ function counter(n) {
 function storeLocal(n) {
 
   let urlName = URList[n].url
+  urlName = JSON.stringify(urlName)
+  urlName = urlName.replace(/^"(.*)"$/, '$1')
+  urlName = urlName.split('.')
+  let urlGood = ''
+
+  if (urlName[0] == 'www'){
+    urlGood = urlName[1]
+  }
+  else if (urlName[0] != 'www'){
+    urlGood = urlName[0]
+  }
+  let passedTime = 0
+
   let backupStorage =  chrome.storage.local.get().then(
-    (result) => {console.log(result.urlName)}
-  );
-  chrome.storage.local.set({ [urlName]: URList[n].time }).then(() => {
-        console.log('temps passé sur Yt', URList[n].time)
+    (result) => {
+      passedTime = result[urlGood]
+      let totalTime = URList[n].time + passedTime
+  
+  chrome.storage.local.set({ [urlGood]: totalTime }).then(() => {
+        URList[n].time = 0
+        console.log('temps passé sauvegardé :', urlGood, totalTime)
+        
   });
+  }
+  );
+
+  
 
   
 
