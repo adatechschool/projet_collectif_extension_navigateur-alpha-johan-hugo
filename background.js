@@ -19,6 +19,7 @@ function storeLocal(n) {
   urlName = urlName.replace(/^"(.*)"$/, '$1')
   urlName = urlName.split('.')
   let urlGood = ''
+  let passedTime = 0
 
   if (urlName[0] == 'www'){
     urlGood = urlName[1]
@@ -26,18 +27,19 @@ function storeLocal(n) {
   else if (urlName[0] != 'www'){
     urlGood = urlName[0]
   }
-  let passedTime = 0
+  
 
-  let backupStorage =  chrome.storage.local.get().then(
+  chrome.storage.local.get().then(
     (result) => {
-      passedTime = result[urlGood]
-      console.log('resulturlgood', result[urlGood])
+      if (result[urlGood] > 0){
+        passedTime = result[urlGood]
+      }
+      
       let totalTime = URList[n].time + passedTime
   
-  chrome.storage.local.set({ [urlGood]: totalTime }).then(() => {
+    chrome.storage.local.set({ [urlGood]: totalTime }).then(() => {
         URList[n].time = 0
-        console.log('temps passé sauvegardé :', urlGood, 'totalTime', totalTime)
-        
+        console.log('temps passé sauvegardé :', urlGood, totalTime)
   });
   }
   );
