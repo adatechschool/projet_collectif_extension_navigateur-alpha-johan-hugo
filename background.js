@@ -31,20 +31,16 @@ function storeLocal(n) {
   let backupStorage =  chrome.storage.local.get().then(
     (result) => {
       passedTime = result[urlGood]
+      console.log('resulturlgood', result[urlGood])
       let totalTime = URList[n].time + passedTime
   
   chrome.storage.local.set({ [urlGood]: totalTime }).then(() => {
         URList[n].time = 0
-        console.log('temps passé sauvegardé :', urlGood, totalTime)
+        console.log('temps passé sauvegardé :', urlGood, 'totalTime', totalTime)
         
   });
   }
   );
-
-  
-
-  
-
 }
 
 async function timeTracker() {

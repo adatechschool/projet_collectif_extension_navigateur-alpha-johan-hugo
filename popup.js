@@ -11,7 +11,6 @@
     
 // })();
 
-
 chrome.storage.local.get().then(
     (result) => {
         document.getElementById('storage').innerHTML = result.google
