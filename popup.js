@@ -1,23 +1,41 @@
-// (async () => {
-//     const response = await chrome.runtime.sendMessage({greeting: "hello"});
+const fillList = (c) =>{
+    let sel = document.getElementById('urlist');
+    let fragment = document.createDocumentFragment();
 
-//     let URList = response.list;
-//     document.getElementById('compteur').innerHTML = 'Time spent on ' + URList[1].url + ' ' + URList[1].time + ' seconds';
-
-//     let checkMatch = false
-//     for (i in URList) {
-//         localStorage.setItem(URList[i].url, URList[i].time)
-//     }
-    
-// })();
-
+    c.forEach(function(cle) {
+    let opt = document.createElement('option');
+    opt.innerHTML = cle;
+    opt.value = cle;
+    fragment.appendChild(opt);
+    });
+    sel.appendChild(fragment);
+}
 
 chrome.storage.local.get().then(
     (result) => {
-        let keys = [Object.keys(result)]
-        let values = [Object.values(result)]
-    }
+        let keys = Object.keys(result)
+        let values = Object.values(result)
+        //document.getElementById('storage').innerHTML = keys[0]
+        
+        fillList(keys)
+        
+}
 )
+
+document.getElementById('result').innerHTML = 0
+let sel = document.getElementById('urlist');
+let selectedValue = sel.options[sel.selectedIndex].value;
+
+if (selectedValue == 'deezer'){
+    document.getElementById('result').innerHTML = 1
+    }
+
+
+
+
+
+
+
 
 
 
