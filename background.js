@@ -14,7 +14,6 @@ function counter(n) {
 
 function storeLocal(n) {
 
-  let urlName = URList[n].url
   let backupStorage =  chrome.storage.local.get().then(
     (result) => {console.log(result.urlName)}
   );
@@ -34,6 +33,8 @@ async function timeTracker() {
   let url = tab.url;
   let urlObject = new URL(url);
   let domain = urlObject.hostname;
+
+  console.log(tab)
 
   for (let i in URList){
 
