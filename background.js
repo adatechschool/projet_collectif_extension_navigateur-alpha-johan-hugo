@@ -12,6 +12,20 @@ function counter(n) {
   console.log('time increased')
 }
 
+function storeLocal(n) {
+
+  let urlName = URList[n].url
+  let backupStorage =  chrome.storage.local.get().then(
+    (result) => {console.log(result.urlName)}
+  );
+  chrome.storage.local.set({ [urlName]: URList[n].time }).then(() => {
+        console.log('temps passé sur Yt', URList[n].time)
+  });
+
+  
+
+}
+
 async function timeTracker() {
 
   detectURL();
@@ -22,17 +36,24 @@ async function timeTracker() {
   let domain = urlObject.hostname;
 
   for (let i in URList){
+
     if (domain == URList[i].url && URList[i].activated == false) {
       URList[i].interval = setInterval(function() {counter(i);}, 1000);
       URList[i].activated = true;
     }
+
     else if (domain != URList[i].url){
       URList[i].activated = false;
       clearInterval(URList[i].interval);
-    }
-  };
-};
+      storeLocal(i)
+    };
 
+    }
+
+      chrome.storage.local.get().then((result) => {
+        console.log('result', result)
+          })
+  };
 
 async function detectURL() {
   let queryOptions = { active: true, lastFocusedWindow: true };
