@@ -54,6 +54,8 @@ async function timeTracker() {
   let urlObject = new URL(url);
   let domain = urlObject.hostname;
 
+  console.log(tab)
+
   for (let i in URList){
 
     if (domain == URList[i].url && URList[i].activated == false) {
