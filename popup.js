@@ -1,15 +1,14 @@
 (async () => {
     const response = await chrome.runtime.sendMessage({greeting: "hello"});
 
-    let timeTemp = response.timeRedStar;
-    document.getElementById('compteur').innerHTML = 'Time spent on redstar ' + timeTemp + ' seconds';
-    
-    //let totalRedStar = parseInt(localStorage.getItem('redstar')) + response.timeSpent;
-    // if (totalRedStar - response.timeSpent != parseInt(localStorage.getItem('redstar'))){
-    //     localStorage.setItem('redstar', totalRedStar.toString());
-    // }
+    let URList = response.list;
+    document.getElementById('compteur').innerHTML = 'Time spent on ' + URList[1].url + ' ' + URList[1].time + ' seconds';
+
+    let checkMatch = false
+    for (i in URList) {
+        localStorage.setItem(URList[i].url, URList[i].time)
+    }
     
 })();
 
-const redstar = localStorage.getItem('redstar');
-document.getElementById('storage').innerHTML = 'Total time spent on redstar ' + redstar + ' seconds';
+document.getElementById('storage').innerHTML = localStorage.getItem('www.youtube.com')

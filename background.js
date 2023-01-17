@@ -40,7 +40,7 @@ async function getCurrentTab() {
 async function detectURL() {
   let queryOptions = { active: true, lastFocusedWindow: true };
   let [tab] = await chrome.tabs.query(queryOptions);
-
+console.log(tab)
   // Exemple d'URL
   var url = tab.url;
   // Créer un objet URL à partir de l'URL
@@ -62,7 +62,8 @@ async function detectURL() {
               url: domain,
               activated: false,
               time: 0,
-              interval: null }
+              interval: null
+    }
               )
     checkCorrespondance = false;
             }
@@ -77,7 +78,7 @@ chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
   if (request.greeting === "hello")
     console.log('bien reçu');
-    sendResponse({timeRedStar: URList[0].time}); 
+    sendResponse({list : URList}); 
     return true;
   }
 );
