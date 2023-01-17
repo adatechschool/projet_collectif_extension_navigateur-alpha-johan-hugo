@@ -14,8 +14,11 @@
 
 chrome.storage.local.get().then(
     (result) => {
-        document.getElementById('storage').innerHTML = result.google
+        let keys = [Object.keys(result)]
+        let values = [Object.values(result)]
     }
 )
+
+
 
 

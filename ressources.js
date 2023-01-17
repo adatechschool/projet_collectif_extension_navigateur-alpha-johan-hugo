@@ -116,3 +116,12 @@
 //   }
 // }
 
+
+//for (let i in keys){
+    //     const newDiv = document.createElement('div')
+    //     const newContent = 'coucou'
+    //     newDiv.appendChild(newContent)
+    //     const currentDiv = document.getElementById('div1')
+    //     document.body.insertBefore(newDiv, currentDiv)
+    //     //document.getElementById('storage').innerHTML = keys[i] + values[i]
+    // }
