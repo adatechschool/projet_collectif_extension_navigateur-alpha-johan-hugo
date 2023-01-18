@@ -1,28 +1,29 @@
-// (async () => {
-//     const response = await chrome.runtime.sendMessage({greeting: "hello"});
+const button = document.getElementById('button')
+button.innerHTML = 'calculate'
 
-//     let URList = response.list;
-//     document.getElementById('compteur').innerHTML = 'Time spent on ' + URList[1].url + ' ' + URList[1].time + ' seconds';
+const fillList = (c) => {
+    let sel = document.getElementById('urlist');
+    for (let i in c) {
+    let opt = document.createElement('option');
+    opt.innerHTML = c[i];
+    opt.value = i;
+    sel.appendChild(opt);
+    };
+};
 
-//     let checkMatch = false
-//     for (i in URList) {
-//         localStorage.setItem(URList[i].url, URList[i].time)
-//     }
-    
-// })();
-
-chrome.storage.local.get().then(
-    (result) => {
-        let arrayDisplay = []
-        let keys = [Object.keys(result)]
-        let values = [Object.values(result)]
-        arrayDisplay.push({cles: keys, valeur: values})
-        for (let i in arrayDisplay){
-        document.getElementById('storage').innerHTML += obj[i].cles
-    }
+chrome.storage.local.get().then((result) => {
+    let keys = Object.keys(result)
+    let values = Object.values(result)
+    fillList(keys)
+    button.onclick = () => {
+        let sel = document.getElementById('urlist');
+        let selectedValue = sel.options[sel.selectedIndex].value;
+        console.log(selectedValue)
+        for (let i in values){
+            if (selectedValue == i){
+                document.getElementById('result').textContent = values[i]
+                }
+            };
+        };
     }
 )
-
-
-
-

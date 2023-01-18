@@ -1,7 +1,5 @@
 // DEBUT COMMENTAIRES BACKGROUND
 
-
-
 // //background.js
 // var currentUrl = "";
 // var timeSpent = {};
@@ -125,3 +123,34 @@
     //     document.body.insertBefore(newDiv, currentDiv)
     //     //document.getElementById('storage').innerHTML = keys[i] + values[i]
     // }
+
+// (async () => {
+//     const response = await chrome.runtime.sendMessage({greeting: "hello"});
+
+//     let URList = response.list;
+//     document.getElementById('compteur').innerHTML = 'Time spent on ' + URList[1].url + ' ' + URList[1].time + ' seconds';
+
+//     let checkMatch = false
+//     for (i in URList) {
+//         localStorage.setItem(URList[i].url, URList[i].time)
+//     }
+    
+// })();
+
+// chrome.storage.local.remove(['"bobbyhadz,com"', '"developer', '"developer,mozilla,org"', '"linuxhint,com"', '"parisbasketball,paris"', '"parisbasketball.paris"', '"stackoverflow', '"stackoverflow,com"', '"trello', '"trello,com"', '"www', '"www,google,com"', '"www,google,fr"', '"www,w3schools,com"', 'bobbyhadz,com', 'com"', 'developer,mozilla,org', 'null', 'org"', 'paris"', 'parisbasketball.paris', 'stackoverflow,com', 'trello,com', 'www,google,com', 'www,google,fr', 'www,lequipe,fr', 'www,w3schools,com'],function(){
+//     var error = chrome.runtime.lastError;
+//        if (error) {
+//            console.error(error);
+//        }
+//    })
+
+// const comm = () => {
+//   chrome.runtime.onMessage.addListener(
+//     function(request, sender, sendResponse) {
+//     if (request.greeting === "hello")
+//       console.log('bien reçu');
+//       //sendResponse({timeRedStar: URList[0].time});
+//       return true;
+//     }
+//   );
+// };
