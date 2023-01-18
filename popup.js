@@ -26,4 +26,18 @@ chrome.storage.local.get().then((result) => {
             };
         };
     }
-)
+);
+
+
+fetch('http://fetedujour.fr/api/v2/xtThCYJ3Q1vqtvSX/text-normal-'+ new Date().toLocaleDateString("fr", {day: "numeric" }) + "-" + new Date().getMonth())
+.then((response) => response.text())
+.then((data) => document.getElementById("fete-jour").innerHTML = data 
+).catch((error) => console.log("Erreur : " + error));
+
+fetch("http://fetedujour.fr/api/v2/xtThCYJ3Q1vqtvSX/text-saints-" + new Date().toLocaleDateString("fr", {day: "numeric" }) + "-" + new Date().getMonth())
+.then((response) => response.text())
+.then((data) => 
+  document.getElementById("contenu").innerHTML = data
+).catch((error) => console.log("Erreur : " + error));
+
+

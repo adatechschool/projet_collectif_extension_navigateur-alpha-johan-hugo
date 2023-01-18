@@ -90,11 +90,11 @@ async function detectURL() {
 
   if (checkCorrespondance == false && domain != "newtab" && domain != 'extensions'){
     URList.push({
-              url: domain,
-              activated: false,
-              time: 0,
-              interval: null }
-              );
+      url: domain,
+      activated: false,
+      time: 0,
+      interval: null }
+    );
     checkCorrespondance = false;
   };
   console.log(URList);
