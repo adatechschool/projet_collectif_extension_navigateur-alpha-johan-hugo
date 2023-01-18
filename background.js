@@ -32,7 +32,7 @@ function storeLocal(n) {
     (result) => {
       if (result[urlGood] > 0){
         passedTime = result[urlGood]
-      }
+      }    
       let totalTime = URList[n].time + passedTime
   
     chrome.storage.local.set({ [urlGood]: totalTime }).then(() => {
@@ -86,7 +86,7 @@ async function detectURL() {
     if (domain == URList[i].url) {
       checkCorrespondance = true;
       }
-    }
+  }
 
   if (checkCorrespondance == false && domain != "newtab" && domain != 'extensions'){
     URList.push({
@@ -96,7 +96,7 @@ async function detectURL() {
               interval: null }
               );
     checkCorrespondance = false;
-    };
+  };
   console.log(URList);
 };
 
