@@ -13,8 +13,13 @@
 
 chrome.storage.local.get().then(
     (result) => {
+        let arrayDisplay = []
         let keys = [Object.keys(result)]
         let values = [Object.values(result)]
+        arrayDisplay.push({cles: keys, valeur: values})
+        for (let i in arrayDisplay){
+        document.getElementById('storage').innerHTML += obj[i].cles
+    }
     }
 )
 
