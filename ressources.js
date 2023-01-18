@@ -1,7 +1,5 @@
 // DEBUT COMMENTAIRES BACKGROUND
 
-
-
 // //background.js
 // var currentUrl = "";
 // var timeSpent = {};
@@ -138,3 +136,21 @@
 //     }
     
 // })();
+
+// chrome.storage.local.remove(['"bobbyhadz,com"', '"developer', '"developer,mozilla,org"', '"linuxhint,com"', '"parisbasketball,paris"', '"parisbasketball.paris"', '"stackoverflow', '"stackoverflow,com"', '"trello', '"trello,com"', '"www', '"www,google,com"', '"www,google,fr"', '"www,w3schools,com"', 'bobbyhadz,com', 'com"', 'developer,mozilla,org', 'null', 'org"', 'paris"', 'parisbasketball.paris', 'stackoverflow,com', 'trello,com', 'www,google,com', 'www,google,fr', 'www,lequipe,fr', 'www,w3schools,com'],function(){
+//     var error = chrome.runtime.lastError;
+//        if (error) {
+//            console.error(error);
+//        }
+//    })
+
+// const comm = () => {
+//   chrome.runtime.onMessage.addListener(
+//     function(request, sender, sendResponse) {
+//     if (request.greeting === "hello")
+//       console.log('bien reçu');
+//       //sendResponse({timeRedStar: URList[0].time});
+//       return true;
+//     }
+//   );
+// };

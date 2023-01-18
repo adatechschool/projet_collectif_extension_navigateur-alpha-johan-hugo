@@ -4,7 +4,7 @@ const URList = [
     activated: false,
     time: 0,
     interval: null
-  }, 
+  }
 ];
 
 function counter(n) {
@@ -28,13 +28,11 @@ function storeLocal(n) {
     urlGood = urlName[0]
   }
   
-
   chrome.storage.local.get().then(
     (result) => {
       if (result[urlGood] > 0){
         passedTime = result[urlGood]
       }
-      
       let totalTime = URList[n].time + passedTime
   
     chrome.storage.local.set({ [urlGood]: totalTime }).then(() => {
@@ -68,7 +66,6 @@ async function timeTracker() {
       clearInterval(URList[i].interval);
       storeLocal(i)
     };
-
     }
 
       chrome.storage.local.get().then((result) => {
@@ -79,21 +76,17 @@ async function timeTracker() {
 async function detectURL() {
   let queryOptions = { active: true, lastFocusedWindow: true };
   let [tab] = await chrome.tabs.query(queryOptions);
-console.log(tab)
-  // Exemple d'URL
-  let url = tab.url;
-  // Créer un objet URL à partir de l'URL
-  let urlObject = new URL(url);
-  // Récupérer le nom de domaine à partir de l'objet URL
-  let domain = urlObject.hostname;
 
+  let url = tab.url;
+  let urlObject = new URL(url);
+  let domain = urlObject.hostname;
   let checkCorrespondance = false
 
   for (i in URList) {
     if (domain == URList[i].url) {
       checkCorrespondance = true;
       }
-  }
+    }
 
   if (checkCorrespondance == false && domain != "newtab" && domain != 'extensions'){
     URList.push({
@@ -103,20 +96,9 @@ console.log(tab)
               interval: null }
               );
     checkCorrespondance = false;
-  };
+    };
   console.log(URList);
 };
 
 chrome.tabs.onActivated.addListener(timeTracker);
 chrome.tabs.onUpdated.addListener(timeTracker);
-
-const comm = () => {
-  chrome.runtime.onMessage.addListener(
-    function(request, sender, sendResponse) {
-    if (request.greeting === "hello")
-      console.log('bien reçu');
-      //sendResponse({timeRedStar: URList[0].time});
-      return true;
-    }
-  );
-};
