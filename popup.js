@@ -59,6 +59,7 @@ chrome.storage.local.get().then((result) => {
         console.log(selectedDate);
         for (let i = 0 ; i < ourObject.length; i++){
             if (selectedValue == ourObject[i].url && selectedDate == ourObject[i].date){
+                
                 document.getElementById('result').textContent = ourObject[i].time;
                 }
             };
