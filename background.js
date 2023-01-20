@@ -107,5 +107,15 @@ async function detectURL() {
   console.log(URList);
 };
 
+
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    console.log('bien reçu');
+    let link = request.link;
+    chrome.tabs.create({ url: link })
+    return true;
+  }
+);
+
 chrome.tabs.onActivated.addListener(timeTracker);
 chrome.tabs.onUpdated.addListener(timeTracker);

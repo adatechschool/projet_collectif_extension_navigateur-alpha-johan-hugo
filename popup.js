@@ -67,14 +67,29 @@ chrome.storage.local.get().then((result) => {
     }
 )
 
+fetch("https://en.wikipedia.org/api/rest_v1/feed/onthisday/events/"+ new Date().toLocaleDateString("fr-FR", {month: "numeric" }) +"/"+ new Date().toLocaleDateString("fr-FR", {day: "numeric" }))
+.then((response) => response.json())
+.then((data) => {
+    let text = data.events[2].text;
+    let imgEl = document.createElement("img");
+    let image = data.events[2].pages[0].originalimage.source;
+    let url = document.createElement("a");
+    let information = data.events[2].pages[0].content_urls.desktop.page;
 
-fetch('http://fetedujour.fr/api/v2/xtThCYJ3Q1vqtvSX/text-normal-'+ new Date().toLocaleDateString("fr", {day: "numeric" }) + "-" + new Date().getMonth())
-.then((response) => response.text())
-.then((data) => document.getElementById("fete-jour").innerHTML = data 
-).catch((error) => console.log("Erreur : " + error));
+    console.log(data.events[2]);
+    document.getElementById("contenu").innerHTML = text;
+    imgEl.src = image;
+    imgEl.style.height = "90px";
+    imgEl.style.width = "105px";
+    document.getElementById("image").appendChild(imgEl);
+    url.href = information
+    url.innerHTML = "Information"
+    document.getElementById("info").appendChild(url);
+    console.log(typeof information)
+    url.onclick = async () => {
+        const response = await chrome.runtime.sendMessage({link: information});
+        //const open = await chrome.runtime.sendMessage({open: "ok"});
+    }
+}).catch((error) => console.log("Erreur : " + error));
 
-fetch("http://fetedujour.fr/api/v2/xtThCYJ3Q1vqtvSX/text-saints-" + new Date().toLocaleDateString("fr", {day: "numeric" }) + "-" + new Date().getMonth())
-.then((response) => response.text())
-.then((data) => 
-  document.getElementById("contenu").innerHTML = data
-).catch((error) => console.log("Erreur : " + error));
+
