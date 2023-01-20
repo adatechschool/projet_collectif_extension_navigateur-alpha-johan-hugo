@@ -39,15 +39,14 @@ function storeLocal(n) {
     (result) => {
       if (result[urlGood] > 0){
         passedTime = result[urlGood]
-      }
-    let totalTime = URList[n].time + passedTime
-
-      console.log(urlGood)
-      chrome.storage.local.set({[urlGood]: totalTime}).then(() => {
-          URList[n].time = 0
-          console.log('temps passé sauvegardé :', urlGood, totalTime)
-          });
-    }
+      }    
+      let totalTime = URList[n].time + passedTime
+  
+    chrome.storage.local.set({ [urlGood]: totalTime }).then(() => {
+        URList[n].time = 0
+        console.log('temps passé sauvegardé :', urlGood, totalTime)
+  });
+  }
   );
 }
 
@@ -94,17 +93,17 @@ async function detectURL() {
     if (domain == URList[i].url) {
       checkCorrespondance = true;
       }
-    }
+  }
 
   if (checkCorrespondance == false && domain != "newtab" && domain != 'extensions'){
     URList.push({
-              url: domain,
-              activated: false,
-              time: 0,
-              interval: null }
-              );
+      url: domain,
+      activated: false,
+      time: 0,
+      interval: null }
+    );
     checkCorrespondance = false;
-    };
+  };
   console.log(URList);
 };
 
