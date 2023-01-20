@@ -19,13 +19,20 @@ function storeLocal(n) {
   urlName = urlName.replace(/^"(.*)"$/, '$1')
   urlName = urlName.split('.')
   let urlGood = ''
+
   let passedTime = 0
+  let dateObj = new Date();
+  let month = dateObj.getUTCMonth() + 1;
+  let day = dateObj.getUTCDate();
+  let year = dateObj.getUTCFullYear();
+  let date = ':' + year + "/" + month + "/" + day
+  
 
   if (urlName[0] == 'www'){
-    urlGood = urlName[1]
+    urlGood = urlName[1] + date
   }
   else if (urlName[0] != 'www'){
-    urlGood = urlName[0]
+    urlGood = urlName[0] + date
   }
   
   chrome.storage.local.get().then(
@@ -33,13 +40,14 @@ function storeLocal(n) {
       if (result[urlGood] > 0){
         passedTime = result[urlGood]
       }
-      let totalTime = URList[n].time + passedTime
-  
-    chrome.storage.local.set({ [urlGood]: totalTime }).then(() => {
-        URList[n].time = 0
-        console.log('temps passé sauvegardé :', urlGood, totalTime)
-  });
-  }
+    let totalTime = URList[n].time + passedTime
+
+      console.log(urlGood)
+      chrome.storage.local.set({[urlGood]: totalTime}).then(() => {
+          URList[n].time = 0
+          console.log('temps passé sauvegardé :', urlGood, totalTime)
+          });
+    }
   );
 }
 
@@ -68,9 +76,9 @@ async function timeTracker() {
     };
     }
 
-      chrome.storage.local.get().then((result) => {
-        console.log('result', result)
-          })
+    chrome.storage.local.get().then((result) => {
+      console.log('result', result)
+        })
   };
 
 async function detectURL() {

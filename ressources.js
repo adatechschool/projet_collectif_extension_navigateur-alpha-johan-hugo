@@ -154,3 +154,10 @@
 //     }
 //   );
 // };
+
+// chrome.storage.local.remove(['deezer', 'deezer2023/1/18:', 'developer:', 'developer2023/1/18:', 'ffb', 'ffb2023/1/18:', 'google', 'javascripttutorial', 'null', 'null2023/1/18:', 'stackoverflow', 'stackoverflow2023/1/18:', 'trello2023/1/18:', 'trello', 'tutorialspoint', "youtube"],function(){
+//     var error = chrome.runtime.lastError;
+//        if (error) {
+//            console.error(error);
+//        }
+//    })
