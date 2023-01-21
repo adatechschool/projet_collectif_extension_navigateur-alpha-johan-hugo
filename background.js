@@ -29,13 +29,20 @@ function storeLocal(n) {
   urlName = urlName.replace(/^"(.*)"$/, '$1')
   urlName = urlName.split('.')
   let urlGood = ''
+
   let passedTime = 0
+  let dateObj = new Date();
+  let month = dateObj.getUTCMonth() + 1;
+  let day = dateObj.getUTCDate();
+  let year = dateObj.getUTCFullYear();
+  let date = ':' + year + "/" + month + "/" + day
+  
 
   if (urlName[0] == 'www'){
-    urlGood = urlName[1]
+    urlGood = urlName[1] + date
   }
   else if (urlName[0] != 'www'){
-    urlGood = urlName[0]
+    urlGood = urlName[0] + date
   }
   
   chrome.storage.local.get().then(
@@ -78,9 +85,9 @@ async function timeTracker() {
     };
     }
 
-      chrome.storage.local.get().then((result) => {
-        console.log('result', result)
-          })
+    chrome.storage.local.get().then((result) => {
+      console.log('result', result)
+        })
   };
 
 async function detectURL() {
@@ -100,13 +107,11 @@ async function detectURL() {
 
   if (checkCorrespondance == false && domain != "newtab" && domain != 'extensions'){
     URList.push({
-              url: domain,
-              activated: false,
-              time: 0,
-              interval: null,
-              jour: date,
-              }
-              );
+      url: domain,
+      activated: false,
+      time: 0,
+      interval: null }
+    );
     checkCorrespondance = false;
   };
 
@@ -121,6 +126,16 @@ async function detectURL() {
 };
   console.log('dayArray', dayArray);
 };
+
+
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    console.log('bien reçu');
+    let link = request.link;
+    chrome.tabs.create({ url: link })
+    return true;
+  }
+);
 
 chrome.tabs.onActivated.addListener(timeTracker);
 chrome.tabs.onUpdated.addListener(timeTracker);
