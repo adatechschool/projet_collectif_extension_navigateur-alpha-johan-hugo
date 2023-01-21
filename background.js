@@ -1,11 +1,21 @@
+let date = new Date();
+let date2 = Date("19/01/2022")
+console.log(date2)
+let day = date.getDate()
+let year = date.getFullYear();
+console.log(date, day, year)
+
+
 const URList = [
   {
     url: null,
     activated: false,
     time: 0,
-    interval: null
+    interval: null,
   }
 ];
+
+let dayArray = []
 
 function counter(n) {
   URList[n].time++  
@@ -13,7 +23,7 @@ function counter(n) {
 }
 
 function storeLocal(n) {
-
+  URList[i].jour
   let urlName = URList[n].url
   urlName = JSON.stringify(urlName)
   urlName = urlName.replace(/^"(.*)"$/, '$1')
@@ -93,11 +103,23 @@ async function detectURL() {
               url: domain,
               activated: false,
               time: 0,
-              interval: null }
+              interval: null,
+              jour: date,
+              }
               );
     checkCorrespondance = false;
   };
-  console.log(URList);
+
+ for (i in URList) {
+    dayArray.push({
+              jour : URList[i].jour,
+              url: domain,
+              time: URList[i].time,
+              }
+              );
+    checkCorrespondance = false;
+};
+  console.log('dayArray', dayArray);
 };
 
 chrome.tabs.onActivated.addListener(timeTracker);
