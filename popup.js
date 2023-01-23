@@ -59,37 +59,43 @@ chrome.storage.local.get().then((result) => {
         console.log(selectedDate);
         for (let i = 0 ; i < ourObject.length; i++){
             if (selectedValue == ourObject[i].url && selectedDate == ourObject[i].date){
-                
-                document.getElementById('result').textContent = ourObject[i].time;
+                document.getElementById('result').textContent = ourObject[i].time + ' seconds';
                 }
             };
         };
     }
 )
 
-fetch("https://en.wikipedia.org/api/rest_v1/feed/onthisday/events/"+ new Date().toLocaleDateString("fr-FR", {month: "numeric" }) +"/"+ new Date().toLocaleDateString("fr-FR", {day: "numeric" }))
-.then((response) => response.json())
-.then((data) => {
-    let text = data.events[2].text;
-    let imgEl = document.createElement("img");
-    let image = data.events[2].pages[0].originalimage.source;
-    let url = document.createElement("a");
-    let information = data.events[2].pages[0].content_urls.desktop.page;
+let instead = document.getElementById('instead')
+instead.innerHTML = '<em>' + 'Instead you could learn about this : '
 
-    console.log(data.events[2]);
-    document.getElementById("contenu").innerHTML = text;
-    imgEl.src = image;
-    imgEl.style.height = "90px";
-    imgEl.style.width = "105px";
-    document.getElementById("image").appendChild(imgEl);
-    url.href = information
-    url.innerHTML = "Information"
-    document.getElementById("info").appendChild(url);
-    console.log(typeof information)
-    url.onclick = async () => {
-        const response = await chrome.runtime.sendMessage({link: information});
-        //const open = await chrome.runtime.sendMessage({open: "ok"});
-    }
-}).catch((error) => console.log("Erreur : " + error));
+const fecthWiki = () => {
+    fetch("https://en.wikipedia.org/api/rest_v1/feed/onthisday/events/"+ new Date().toLocaleDateString("fr-FR", {month: "numeric" }) +"/"+ new Date().toLocaleDateString("fr-FR", {day: "numeric" }))
+    .then((response) => response.json())
+    .then((data) => {
+        let text = data.events[2].text;
+        let imgEl = document.createElement("img");
+        let image = data.events[2].pages[0].originalimage.source;
+        let url = document.createElement("a");
+        let information = data.events[2].pages[0].content_urls.desktop.page;
+
+        console.log(data.events[2]);
+        document.getElementById("contenu").innerHTML = text;
+        imgEl.src = image;
+        imgEl.style.height = "90px";
+        imgEl.style.width = "105px";
+        document.getElementById("image").appendChild(imgEl);
+        url.href = information
+        url.innerHTML = "Information"
+        document.getElementById("info").appendChild(url);
+        console.log(typeof information)
+        url.onclick = async () => {
+            const response = await chrome.runtime.sendMessage({link: information});
+            //const open = await chrome.runtime.sendMessage({open: "ok"});
+        }
+    }).catch((error) => console.log("Erreur : " + error));
+}
+fecthWiki()
+
 
 
