@@ -12,6 +12,21 @@ const fillList = (c) => {
     };
 };
 
+let hours = [];
+let minutes = [];
+let seconds = [];
+
+
+const time = (n) => {
+    for (i in n) {
+        console.log("time", n[0])
+       
+        // hours.push(n[i]);  
+    }
+   
+
+}
+
 chrome.storage.local.get().then((result) => {
     console.log(result)
     
@@ -61,6 +76,7 @@ chrome.storage.local.get().then((result) => {
             if (selectedValue == ourObject[i].url && selectedDate == ourObject[i].date){
                 document.getElementById('result').textContent = ourObject[i].time + ' seconds';
                 }
+
             };
         };
     }
